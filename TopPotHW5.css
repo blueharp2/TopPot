@@ -1,0 +1,34 @@
+body {
+  background-color: #70C7E5;
+}
+h1 {
+  font-family: Arial;
+  font-size: 60px;
+  text-align: center;
+}
+#top {
+  margin: 50px auto 50px auto;
+  display: block;
+}
+table{
+  width: 550px;
+  margin: 30px auto 50px auto;
+  display: block;
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  font-family: Arial;
+}
+.headerColumn{
+  text-align: left;
+}
+th, td{
+padding: 5px;
+text-align: center;
+border: 1px solid black;
+}
+.note{
+  font-family: cursive;
+  font-size: 12px;
+  text-align: center;
+}
