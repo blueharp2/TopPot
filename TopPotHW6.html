@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="TopPotHW5.css">
+  <title>Top Pot Baking Calculator</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script> window.jQuery || document.write('<script src="js/jquery-1.11.2.js"><\/script>')
+</script>
+</head>
+<body>
+<h1>The Donut Master</h1>
+<img id="top" src="https://pbs.twimg.com/media/CMaFHaqUkAAa_ui.jpg:large" alt="Top Pot Delivery Van" width="60%" height="60%" />
+
+<table>
+  <tr>
+    <th> Top Pot Location</th>
+    <th> Average Donuts Per Hour</th>
+    <th> Average Donuts Per Day</th>
+   </tr>
+    <tr>
+      <th class="headerColumn1"></th>
+      <td class="avgPerHour1"></td>
+      <td class="avgPerDay1"></td>
+   </tr>
+   <tr>
+      <th class="headerColumn2"></th>
+      <td class="avgPerHour2"></td>
+      <td class="avgPerDay2"></td>
+   </tr>
+    <tr>
+      <th class="headerColumn3"></th>
+      <td class="avgPerHour3"></td>
+      <td class="avgPerDay3"></td>
+   </tr>
+    <tr>
+      <th class="headerColumn4"></th>
+      <td class="avgPerHour4"></td>
+      <td class="avgPerDay4"></td>
+   </tr>
+    <tr>
+      <th class="headerColumn5"></th>
+      <td class="avgPerHour5"></td>
+      <td class="avgPerDay5"></td>
+   </tr>
+   <tr>
+      <th class="headerColumn6"></th>
+      <td class="avgPerHour6"></td>
+      <td class="avgPerDay6"></td>
+   </tr>
+</table>
+
+<p class="note"> Created by Lindsey Boggio </p>
+
+<script type="text/javascript">
+
+  function TopPot(min, max, avg, name, hours){
+    this.min = min;
+    this.max = max;
+    this.avg = avg;
+    this.name = name;
+    this.hours = hours;
+
+    this.getCustomerPerHour = function () {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+    this.getDonutsPerHour = function () {
+      return Math.round(this.getCustomerPerHour() * avg);
+    };
+    this.getDonutsPerDay = function () {
+      return (this.getDonutsPerHour() * hours);
+    };
+  }
+
+  function DonutMaster(){
+    this.shopList = [];
+
+    this.addShop = function(location){
+        this.shopList.push(location);
+      }
+    this.generateReport = function(){
+    for (var i = 0; i < this.shopList.length; i++) {
+     console.log("The " + this.shopList[i].name + " location needs " + this.shopList[i].getDonutsPerHour() + " donuts per hour, for a total of " + this.shopList[i].getDonutsPerDay() + " donuts per day.");
+      }
+    };
+  }
+
+  var westSeattle = new TopPot(7, 10, 5.5, "West Seattle", 14);
+  var downtown = new TopPot(8, 43, 4.5, "Downtown", 8);
+  var capitolHill = new TopPot(4, 37, 2, "Capitol Hill", 12);
+  var southLakeUnion = new TopPot(9, 23, 6.33, "South Lake Union", 8);
+  var wedgewood = new TopPot(2, 28, 1.25, "Wedgewood", 5);
+  var ballard = new TopPot(8, 58, 3.75, "Ballard", 8);
+
+  var king = new DonutMaster();
+
+  king.addShop(westSeattle);
+  king.addShop(downtown);
+  king.addShop(capitolHill);
+  king.addShop(southLakeUnion);
+  king.addShop(wedgewood);
+  king.addShop(ballard);
+
+  king.generateReport();
+
+  // Attempt at jQuery//
+  //Attempt at pulling the names of the shops//
+  $(".headerColumn1").append(westSeattle.name);//West Seattle//
+  $(".headerColumn2").append(downtown.name);//Downtown//
+  $(".headerColumn3").append(capitolHill.name);//Capitol Hill//
+  $(".headerColumn4").append(southLakeUnion.name);//South Lake Union//
+  $(".headerColumn5").append(wedgewood.name);//Wedgewood//
+  $(".headerColumn6").append(ballard.name);//Ballard//
+
+  //Need to add On Click Events for each location//
+  $(".headerColumn1").click(function (){
+    $(".avgPerHour1").append(westSeattle.getDonutsPerHour());
+    $(".avgPerDay1").append(westSeattle.getDonutsPerDay());
+  });
+
+$(".headerColumn2").click(function (){
+    $(".avgPerHour2").append(downtown.getDonutsPerHour());
+    $(".avgPerDay2").append(downtown.getDonutsPerDay());
+  });
+
+$(".headerColumn3").click(function (){
+    $(".avgPerHour3").append(capitolHill.getDonutsPerHour());
+    $(".avgPerDay3").append(capitolHill.getDonutsPerDay());
+  });
+
+$(".headerColumn4").click(function (){
+    $(".avgPerHour4").append(southLakeUnion.getDonutsPerHour());
+    $(".avgPerDay4").append(southLakeUnion.getDonutsPerDay());
+  });
+
+$(".headerColumn5").click(function (){
+    $(".avgPerHour5").append(wedgewood.getDonutsPerHour());
+    $(".avgPerDay5").append(wedgewood.getDonutsPerDay());
+  });
+
+$(".headerColumn6").click(function (){
+    $(".avgPerHour6").append(ballard.getDonutsPerHour());
+    $(".avgPerDay6").append(ballard.getDonutsPerDay());
+  });
+
+  //click to get rid of photo//
+  $(document).ready(function (){
+    $("img").mousedown(function (){
+      $("#top").fadeOut(1000);
+    });
+  });
+
+</script>
+
+</body>
+</html>
