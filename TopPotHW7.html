@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="TopPotHW7.css">
+  <title>Top Pot Baking Calculator</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script> window.jQuery || document.write('<script src="js/jquery-1.11.2.js"><\/script>')
+</script>
+</head>
+<body>
+<h1>The Donut Master</h1>
+<img id="top" src="https://pbs.twimg.com/media/CMaFHaqUkAAa_ui.jpg:large" alt="Top Pot Delivery Van" width="60%" height="60%" />
+
+<button class='myButton'> Show Top Pot Store Info </button>
+
+<table id='donutTable'>
+  <thead>
+  <tr>
+    <th> Top Pot Location</th>
+    <th> Average Donuts Per Hour</th>
+    <th> Average Donuts Per Day</th>
+   </tr>
+   </thead>
+   <tbody></tbody>
+</table>
+
+<p class="note"> Created by Lindsey Boggio </p>
+
+<script type="text/javascript">
+
+  function TopPot(min, max, avg, name, hours){
+    this.min = min;
+    this.max = max;
+    this.avg = avg;
+    this.name = name;
+    this.hours = hours;
+
+    this.getCustomerPerHour = function () {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+    this.getDonutsPerHour = function () {
+      return Math.round(this.getCustomerPerHour() * avg);
+    };
+    this.getDonutsPerDay = function () {
+      return (this.getDonutsPerHour() * hours);
+    };
+  }
+
+  function DonutMaster(){
+    this.shopList = [];
+
+    this.addShop = function(location){
+        this.shopList.push(location);
+      }
+    this.generateReport = function(){
+    for (var i = 0; i < this.shopList.length; i++) {
+     console.log("The " + this.shopList[i].name + " location needs " + this.shopList[i].getDonutsPerHour() + " donuts per hour, for a total of " + this.shopList[i].getDonutsPerDay() + " donuts per day.");
+      }
+    };
+  }
+
+  var westSeattle = new TopPot(7, 10, 5.5, "West Seattle", 14);
+  var downtown = new TopPot(8, 43, 4.5, "Downtown", 8);
+  var capitolHill = new TopPot(4, 37, 2, "Capitol Hill", 12);
+  var southLakeUnion = new TopPot(9, 23, 6.33, "South Lake Union", 8);
+  var wedgewood = new TopPot(2, 28, 1.25, "Wedgewood", 5);
+  var ballard = new TopPot(8, 58, 3.75, "Ballard", 8);
+
+  var king = new DonutMaster();
+
+  king.addShop(westSeattle);
+  king.addShop(downtown);
+  king.addShop(capitolHill);
+  king.addShop(southLakeUnion);
+  king.addShop(wedgewood);
+  king.addShop(ballard);
+
+  king.generateReport();
+
+  // Attempt at populating the Table with jQuery//
+$('.myButton').on('click', function() {
+  $('tbody').html(function(){
+    var tableInfo;
+    for (var i = 0; i <king.shopList.length; i++) {
+      tableInfo += '<tr><td>'+ king.shopList[i].name + '</td><td>' +
+      king.shopList[i].getDonutsPerHour() + '</td><td>' +
+      king.shopList[i].getDonutsPerDay() + '</td></tr>';
+    }
+    return tableInfo;
+  });
+});
+
+  //click to get rid of photo//
+  $("img").mousedown(function () {
+    $("#top").fadeOut(1000);
+    })
+
+</script>
+
+</body>
+</html>
